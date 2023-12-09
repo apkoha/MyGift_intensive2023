@@ -43,7 +43,6 @@ const init = async () => {
   window.addEventListener("resize", rearrangeElement);
 
   const id = getIdFromUrl();
-  console.log("id: ", id);
 
   if (id) {
     const data = await getGiftData(id);
