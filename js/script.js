@@ -1,5 +1,5 @@
 // день 4 видео 1 время 1:01:31
-const API_URL = "";
+const API_URL = "https://lavender-quiver-farmhouse.glitch.me/";
 
 const swiperThumb = new Swiper(".gift__swiper_thumb", {
   slidesPerView: "auto",
@@ -72,7 +72,7 @@ const phoneValidateOption = {
 
 form.addEventListener("input", updateSubmitButton);
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const errors = validate(form, {
@@ -91,5 +91,28 @@ form.addEventListener("submit", (event) => {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData);
 
-  form.reset();
+  try {
+    const response = await fetch(`${API_URL}/api/gift`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      prompt(
+        "Открытка успешно сохранена. Доступна по адресу: ",
+        `${location.origin}/card.html?id=${result.id}`
+        // `${location.origin}/MyGift_intensive2023_frontend/card.html?id=${result.id}`
+      );
+      form.reset();
+    } else {
+      alert(`Ошибка при отправке: ${result.message}`);
+    }
+  } catch (error) {
+    console.error(`Произошла ошибка при отправке: ${error}`);
+  }
 });
