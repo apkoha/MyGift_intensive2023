@@ -105,8 +105,8 @@ form.addEventListener("submit", async (event) => {
     if (response.ok) {
       prompt(
         "Открытка успешно сохранена. Доступна по адресу: ",
-        `${location.origin}/card.html?id=${result.id}`
-        // `${location.origin}/MyGift_intensive2023_frontend/card.html?id=${result.id}`
+        // `${location.origin}/card.html?id=${result.id}`
+        `${location.origin}/MyGift_intensive2023_frontend/card.html?id=${result.id}`
       );
       form.reset();
     } else {
